@@ -1,9 +1,12 @@
-pipeline {
-  agent any
+pipeline {  
+  agent {
+    docker { image "node:14-alpine" }
+  }
   stages { 
     stage("Prebuild") {
       steps {
         echo "Prebuild"
+        sh "node --version"
       }    
     }
     stage("Test") {
@@ -14,6 +17,7 @@ pipeline {
     stage("Postbuild") {
       steps {
         echo "Postbuild"
+        sh "node --version"
       }
     }
   }
