@@ -1,22 +1,21 @@
 pipeline {  
-   agent { dockerfile true }
+   agent {
+     docker { image "node:14-alpine" }
+   }
    stages { 
       stage("Prebuild") {
         steps {
-           echo "prebuild"
-           sh "node --version"
-           sh "svn --version"
+           sh "npm install"
         }    
       }
-      stage("Test") {
+      stage("Unit test") {
         steps {
-           echo "test"
+           sh "npm run test-unit"
         }    
       }
-      stage("Postbuild") {
+      stage("Integration test") {
         steps {
-           echo "postbuild"
-           sh "node --version"
+           sh "npm run test-integration"
         }    
       }
    }
