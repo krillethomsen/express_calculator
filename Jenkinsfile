@@ -1,7 +1,5 @@
 pipeline {  
-   agent {
-     docker { image "node:14-alpine" }
-   }
+   agent any
    stages { 
       stage("Prebuild") {
         steps {
@@ -15,6 +13,12 @@ pipeline {
       }
       stage("Integration test") {
         steps {
+           when{
+             anyOf{
+               branch "develop";
+               branch "main"
+             }
+           }
            sh "npm run test-integration"
         }    
       }
