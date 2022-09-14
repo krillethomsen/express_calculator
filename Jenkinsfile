@@ -12,13 +12,13 @@ pipeline {
         }    
       }
       stage("Integration test") {
+        when{
+          anyOf{
+            branch "develop";
+            branch "main"
+          }
+        }
         steps {
-           when{
-             anyOf{
-               branch "develop";
-               branch "main"
-             }
-           }
            sh "npm run test-integration"
         }    
       }
